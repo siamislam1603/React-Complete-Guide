@@ -1,40 +1,34 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-const App =(props)=> {
-
-  // Array destructuring
-  const [personsState,setPersonsState]=useState({
+class App extends Component {
+  state={
     persons:[
       {name:'Max',age:23},
       {name:'Sam',age:29},
       {name:'Manu',age:32}
     ]
-  });
-  
-  //React hooks doesn't merge old states with changing ones but class based component does
-  const [otherState,setOtherState]=useState('some other value');
-  console.log(personsState,otherState);
-
-  const switchNameHandler=()=>{
-    setPersonsState({
+  }
+  switchNameHandler=(newName)=>{
+    this.setState({
       persons:[
-        {name:'Maximilian',age:23},
+        {name:newName,age:23},
         {name:'Samuel',age:29},
         {name:'Manuer',age:32}
       ]
     });
-  };
-  return (
-    <div className="App">
-      <h1>Hello There!</h1>
-      <button onClick={switchNameHandler}>Switch names</button>
-      <Person name={personsState.persons[0].name} age={personsState.persons[0].age} />
-      <Person name={personsState.persons[1].name} age={personsState.persons[1].age} />
-      <Person name={personsState.persons[2].name} age={personsState.persons[2].age}>My Hobbies:Gandening</Person>
-    </div>
-  );
-  
+  }
+  render() {
+    return (
+      <div className="App">
+        <h1>Hello There!</h1>
+        <button onClick={()=>this.switchNameHandler('Maximilian')}>Switch names</button>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+        <Person name={this.state.persons[1].name} age={this.state.persons[1].age} click={this.switchNameHandler.bind(this,'Maxi')} />
+        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>My Hobbies:Gandening</Person>
+      </div>
+    );
+  }
 }
 
 export default App;
