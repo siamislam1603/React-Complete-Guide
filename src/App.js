@@ -7,7 +7,8 @@ class App extends Component {
       {name:'Max',age:23},
       {name:'Sam',age:29},
       {name:'Manu',age:32}
-    ]
+    ],
+    personVisibility:true
   }
   switchNameHandler=(newName)=>{
     this.setState({
@@ -27,18 +28,24 @@ class App extends Component {
       ]
     });
   }
+  togglePersonVisiblity=()=>{
+    this.setState({personVisibility: !this.state.personVisibility});
+  }
   render() {
     return (
       <div className="App">
         <h1>Hello There!</h1>
-        <button onClick={()=>this.switchNameHandler('Maximilian')}>Switch names</button>
-        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
-        <Person
-         name={this.state.persons[1].name}
-         age={this.state.persons[1].age}
-         click={this.switchNameHandler.bind(this,'Maxi')}
-         changed={this.nameChangedHandler} />
-        <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>My Hobbies:Gandening</Person>
+        <button onClick={this.togglePersonVisiblity}>Toggle Persons Visibility</button>
+        {this.state.personVisibility===true?<div>
+          <Person name={this.state.persons[0].name} age={this.state.persons[0].age} />
+          <Person
+          name={this.state.persons[1].name}
+          age={this.state.persons[1].age}
+          click={this.switchNameHandler.bind(this,'Maxi')}
+          changed={this.nameChangedHandler} />
+          <Person name={this.state.persons[2].name} age={this.state.persons[2].age}>My Hobbies:Gandening</Person>
+        </div>: null
+        }
       </div>
     );
   }
