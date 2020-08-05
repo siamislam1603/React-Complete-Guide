@@ -8,7 +8,7 @@ class App extends Component {
       {id:'2',name:'Sam',age:29},
       {id:'3',name:'Manu',age:32}
     ],
-    personVisibility:true
+    personVisibility:false
   }
   nameChangedHandler=(event,id)=>{
     const personIndex=this.state.persons.findIndex(p=>{
@@ -34,6 +34,13 @@ class App extends Component {
   }
   render() {
     let persons=null;
+    const style={
+      backgroundColor:'green',
+      color:'white',
+      outline:'none',
+      borderRadius:'16px',
+      padding:'10px'
+    }
     if(this.state.personVisibility){
       persons=(
         <div>
@@ -48,11 +55,19 @@ class App extends Component {
           })}
         </div>
       );
+      style.backgroundColor='red';
+    }
+    const classes=[];
+    if(this.state.persons.length<=2){
+      classes.push('red');
+    }
+    if(this.state.persons.length<=1){
+      classes.push('bold');
     }
     return (
       <div className="App">
-        <h1>Hello There!</h1>
-        <button onClick={this.togglePersonVisiblity}>Toggle Persons Visibility</button>
+        <h1 className={classes.join(' ')}>Hello There!</h1>
+        <button onClick={this.togglePersonVisiblity} style={style}>Toggle Persons Visibility</button>
         {persons}
       </div>
     );
