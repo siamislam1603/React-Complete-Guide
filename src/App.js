@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import './App.css';
 import Person from './Person/Person';
-import Radium,{ StyleRoot } from 'radium';
 
+const StyledButton=styled.button`
+  background-color: ${props=>props.alt?'red':'green'};
+  color:white;
+  outline:none;
+  borderRadius:16px;
+  padding:10px;
+  &:hover{
+    background-color:${props=>props.alt?'salmon':'lightgreen'};
+    color:black;
+  }
+`;
 class App extends Component {
   state={
     persons:[
@@ -36,17 +47,6 @@ class App extends Component {
   }
   render() {
     let persons=null;
-    const style={
-      backgroundColor:'green',
-      color:'white',
-      outline:'none',
-      borderRadius:'16px',
-      padding:'10px',
-      ':hover':{
-        backgroundColor:'lightgreen',
-        color:'black'
-      }
-    }
     if(this.state.personVisibility){
       persons=(
         <div>
@@ -61,11 +61,6 @@ class App extends Component {
           })}
         </div>
       );
-      style.backgroundColor='red';
-      style[':hover']={
-        backgroundColor:'salmon',
-        color:'black'
-      };
     }
     const classes=[];
     if(this.state.persons.length<=2){
@@ -75,15 +70,13 @@ class App extends Component {
       classes.push('bold');
     }
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1 className={classes.join(' ')}>Hello There!</h1>
-          <button onClick={this.togglePersonVisiblity} style={style}>Toggle Persons Visibility</button>
-          {persons}
-        </div>
-      </StyleRoot>
+      <div className="App">
+        <h1 className={classes.join(' ')}>Hello There!</h1>
+        <StyledButton alt={this.state.personVisibility} onClick={this.togglePersonVisiblity}>Toggle Persons Visibility</StyledButton>
+        {persons}
+      </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
