@@ -7,3 +7,14 @@
 .bold{
   font-weight:bold;
 }
+.button{
+  background-color: green;
+  color:white;
+  outline:none;
+  border-radius:16px;
+  padding:10px;
+}
+.button:hover{
+  background-color:lightgreen;
+  color:black;
+}
